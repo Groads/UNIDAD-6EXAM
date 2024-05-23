@@ -33,26 +33,26 @@ def mezcla_equilibrada(arr, key):
         right_half = mezcla_equilibrada(arr[mid:], key)
         return merge(left_half, right_half, key)
 
-# Leer datos del archivo CSV
+
 empleados = []
 with open('EMPLEADOS.csv', newline='', encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
-    # Verificar encabezados
+  
     encabezados = reader.fieldnames
     print("Encabezados:", encabezados)
     for row in reader:
-        # Corregir el nombre de la primera columna
+       
         if '\ufeffNombre' in row:
             row['Nombre'] = row.pop('\ufeffNombre')
         empleados.append(row)
 
-# Verificar datos leídos
+
 print("Datos leídos (primeros 5 registros):", empleados[:5])
 
-# Ordenar la lista de empleados usando mezcla directa
+
 empleados_ordenados_directa = merge_sort(empleados, "Nombre")
 
-# Guardar el resultado de la mezcla directa en un nuevo archivo CSV
+
 with open('EMPLEADOS_ORDENADOS_DIRECTA.csv', 'w', newline='', encoding='utf-8') as csvfile:
     fieldnames = empleados[0].keys()
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -60,10 +60,10 @@ with open('EMPLEADOS_ORDENADOS_DIRECTA.csv', 'w', newline='', encoding='utf-8') 
     for emp in empleados_ordenados_directa:
         writer.writerow(emp)
 
-# Ordenar la lista de empleados usando mezcla equilibrada
+
 empleados_ordenados_equilibrada = mezcla_equilibrada(empleados, "Nombre")
 
-# Guardar el resultado de la mezcla equilibrada en un nuevo archivo CSV
+
 with open('EMPLEADOS_ORDENADOS_EQUILIBRADA.csv', 'w', newline='', encoding='utf-8') as csvfile:
     fieldnames = empleados[0].keys()
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
